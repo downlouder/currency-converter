@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Converter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Currency Converter</h1>
+    </header>
+    <main class="app">
+      <div class="first-block">
+        <input type="number" name="firstInput" id="first" />
+        <select name="firstSelect" id="firstSelect">
+          <option value="currency" data-currency="currency">Currency</option>
+        </select>
+      </div>
+      <div class="second-block">
+        <input type="number" name="secondInput" id="second" />
+        <select name="secondSelect" id="secondSelect">
+          <option value="currency" data-currency="currency">Currency</option>
+        </select>
+      </div>
+    </main>
+    <footer>
+      <p>
+        Copyright ©
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        <a href="https://github.com/downlouder" target="_blank"> downlouder </a>
+      </p>
+    </footer>
+  </body>
+</html>

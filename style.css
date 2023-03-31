@@ -1,0 +1,102 @@
+* {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #252525;
+}
+
+header {
+  margin-top: 2%;
+}
+
+h1 {
+  text-transform: uppercase;
+}
+
+.app {
+  /* border: 1px solid black; */
+  width: 50%;
+  height: 20%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+}
+
+.app > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+input, select {
+  width: 300px;
+  height: 40px;
+  outline: none;
+  border: none;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  padding-left: 20px;
+}
+
+option {
+  border: none;
+  outline: none;
+  border-radius: 8px;
+}
+
+option:hover {
+  /* background-color: #f9f9f9; */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+select {
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  appearance:none;
+}
+
+/* FOOTER */
+a {
+  text-decoration: none;
+  color: #202020;
+}
+a:hover {
+  color: #555;
+} 
+a:active {
+  color: #7b7b7b;
+}
+footer {
+  color: #202020;
+  font-size: 18px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 8px;
+}
