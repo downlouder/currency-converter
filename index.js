@@ -191,8 +191,8 @@ async function parsingFromFetch() {
   addOptions(currencies);
 }
 
-async function parsingFromObj(data) {
-  const currencies = await data;
+function parsingFromObj(data) {
+  const currencies = data;
   addOptions(currencies);
 }
 
