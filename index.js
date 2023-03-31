@@ -1,7 +1,6 @@
-import apiKey from './apiKey.js';
-
 const selects = document.querySelectorAll('select');
 const inputs = document.querySelectorAll('input');
+const apiKey = '';
 const url = `https://api.currencyapi.com/v3/latest?apikey=${apiKey}`;
 
 const currencyObj = {
@@ -191,8 +190,8 @@ async function parsingFromFetch() {
   addOptions(currencies);
 }
 
-async function parsingFromObj(data) {
-  const currencies = await data;
+function parsingFromObj(data) {
+  const currencies = data;
   addOptions(currencies);
 }
 
