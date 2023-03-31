@@ -1,7 +1,5 @@
 const selects = document.querySelectorAll('select');
 const inputs = document.querySelectorAll('input');
-const apiKey = '';
-const url = `https://api.currencyapi.com/v3/latest?apikey=${apiKey}`;
 
 const currencyObj = {
   ADA: {code: 'ADA', value: 2.619515},
@@ -181,13 +179,6 @@ const currencyObj = {
   ZMK: {code: 'ZMK', value: 9001.2},
   ZMW: {code: 'ZMW', value: 21.269628},
   ZWL: {code: 'ZWL', value: 321.999592}
-}
-
-async function parsingFromFetch() {
-  const res = await fetch(url);
-  const data = await res.json();
-  const currencies = await data.data;
-  addOptions(currencies);
 }
 
 function parsingFromObj(data) {
