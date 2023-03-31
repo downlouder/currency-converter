@@ -1,6 +1,7 @@
+import apiKey from './apiKey.js';
+
 const selects = document.querySelectorAll('select');
 const inputs = document.querySelectorAll('input');
-const apiKey = '';
 const url = `https://api.currencyapi.com/v3/latest?apikey=${apiKey}`;
 
 const currencyObj = {
@@ -184,13 +185,10 @@ const currencyObj = {
 }
 
 async function parsingFromFetch() {
-  fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      const currencies = data.data;
-      console.log(currencies)
-      addOptions(currencies);
-    })
+  const res = await fetch(url);
+  const data = await res.json();
+  const currencies = await data.data;
+  addOptions(currencies);
 }
 
 async function parsingFromObj(data) {
@@ -210,25 +208,18 @@ function addOptions(currencies) {
   });
 }
 
+function convertValues(i, j) {
+  if (selects[i].value !== 'currency' && selects[j].value !== 'currency') {
+    const exp = inputs[i].value * currencyObj[selects[j].value].value / currencyObj[selects[i].value].value;
+    inputs[j].value = exp.toFixed(4);
+  }
+}
+
+selects[0].addEventListener('change', () => convertValues(0, 1));
+selects[1].addEventListener('change', () => convertValues(1, 0));
+inputs[0].addEventListener('change', () => convertValues(0, 1));
+inputs[0].addEventListener('keyup', () => convertValues(0, 1));
+inputs[1].addEventListener('change', () => convertValues(1, 0));
+inputs[1].addEventListener('keyup', () => convertValues(1, 0));
+
 parsingFromObj(currencyObj);
-
-function countFirstBlock() {
-  if (selects[0].value !== 'currency' && selects[1].value !== 'currency') {
-    const exp = inputs[0].value * currencyObj[selects[1].value].value / currencyObj[selects[0].value].value;
-    inputs[1].value = exp.toFixed(4);
-  }
-}
-
-function countSecondBlock() {
-  if (selects[0].value !== 'currency' && selects[1].value !== 'currency') {
-    const exp = inputs[1].value * currencyObj[selects[0].value].value / currencyObj[selects[1].value].value
-    inputs[0].value = exp.toFixed(4);
-  }
-}
-
-selects[0].addEventListener('change', countFirstBlock);
-selects[1].addEventListener('change', countSecondBlock);
-inputs[0].addEventListener('change', countFirstBlock);
-inputs[0].addEventListener('keyup', countFirstBlock);
-inputs[1].addEventListener('change', countFirstBlock);
-inputs[1].addEventListener('keyup', countFirstBlock);
