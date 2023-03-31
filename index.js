@@ -3,8 +3,6 @@ const inputs = document.querySelectorAll('input');
 const apiKey = '';
 const url = `https://api.currencyapi.com/v3/latest?apikey=${apiKey}`;
 
-let firstSelectorVal, secondSelectorVal, firstInputVal, secondInputVal;
-
 const currencyObj = {
   ADA: {code: 'ADA', value: 2.619515},
   AED: {code: 'AED', value: 3.672606},
@@ -185,7 +183,7 @@ const currencyObj = {
   ZWL: {code: 'ZWL', value: 321.999592}
 }
 
-function parsingFromFetch() {
+async function parsingFromFetch() {
   fetch(url)
     .then(res => res.json())
     .then(data => {
@@ -195,74 +193,42 @@ function parsingFromFetch() {
     })
 }
 
-function parsingFromObj(data) {
-  const currencies = data;
-  console.log(currencies)
+async function parsingFromObj(data) {
+  const currencies = await data;
   addOptions(currencies);
 }
 
 function addOptions(currencies) {
   selects.forEach(select => {
-    for(let currency in currencies) {
+    const arrKeys = Object.keys(currencies);
+    arrKeys.map(item => {
       const option = document.createElement('option');
-      const text = currencies[currency].code;
-      option.dataset.select = select.id === 'firstSelect' ? 'first' : 'second';
-      option.dataset.currency = text;
-      option.textContent = text;
+      option.value = item;
+      option.textContent = item;
       select.appendChild(option);
-    }
+    });
   });
 }
 
 parsingFromObj(currencyObj);
-selects.forEach(select => {
-  setSelectorValue(select);
-  select.addEventListener('change', () => {
-    setSelectorValue(select);
-  });
-})
 
-function setSelectorValue(select) {
-  if (select.id === 'firstSelect') firstSelectorVal = select.value;
-  else secondSelectorVal = select.value;
-  convertCurrency();
-}
-
-inputs.forEach(input => {
-  input.addEventListener('change', () => {
-    setInputsValue(input);
-  });
-  input.addEventListener('keyup', () => {
-    setInputsValue(input);
-  });
-})
-
-function setInputsValue(input) {
-  if(input.name === 'firstInput') firstInputVal = input.value;
-  else secondInputVal = input.value;
-  console.log(input.value);
-  convertCurrency();
-}
-
-function convertCurrency() {
-  if ((firstSelectorVal !== 'currency' && secondSelectorVal !== 'currency') && (firstInputVal || secondInputVal)) {
-    let firstCurr, secondCurr
-    console.log('hello')
-    for(let currency in currencyObj) {
-      if(currencyObj[currency].code === firstSelectorVal) {
-        firstCurr = currencyObj[currency].value;
-      } else if (currencyObj[currency].code === secondSelectorVal) {
-        secondCurr = currencyObj[currency].value;
-      }
-    }
-    calculateEx(firstCurr, secondCurr);
-    console.log([firstCurr, secondCurr])
+function countFirstBlock() {
+  if (selects[0].value !== 'currency' && selects[1].value !== 'currency') {
+    const exp = inputs[0].value * currencyObj[selects[1].value].value / currencyObj[selects[0].value].value;
+    inputs[1].value = exp.toFixed(4);
   }
 }
 
-function calculateEx(firstCurr, secondCurr) {
-  console.log(firstInputVal * secondCurr);
-  document.querySelector('input#second').value = firstInputVal * secondCurr;
+function countSecondBlock() {
+  if (selects[0].value !== 'currency' && selects[1].value !== 'currency') {
+    const exp = inputs[1].value * currencyObj[selects[0].value].value / currencyObj[selects[1].value].value
+    inputs[0].value = exp.toFixed(4);
+  }
 }
 
-console.log(inputs);
+selects[0].addEventListener('change', countFirstBlock);
+selects[1].addEventListener('change', countSecondBlock);
+inputs[0].addEventListener('change', countFirstBlock);
+inputs[0].addEventListener('keyup', countFirstBlock);
+inputs[1].addEventListener('change', countFirstBlock);
+inputs[1].addEventListener('keyup', countFirstBlock);
